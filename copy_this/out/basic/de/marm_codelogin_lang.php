@@ -32,7 +32,6 @@ $sLangName  = "Deutsch";
 // -------------------------------
 $aLang = array(
     'charset'                                  		=> 'ISO-8859-15',
-    'tbclmarm_codelogin' 							=> 'CodeLogin',
 	'MARM_CODELOGIN_CODE'							=> 'Login-Code',
-	'INC_CMP_LOGIN_RIGHT_CODE'						=> 'Codelogin',
+	'MARM_LOGIN_RIGHT_BUTTON'						=> 'Codelogin',
 );

@@ -6,7 +6,7 @@
     <div class="form">
         [{ $oViewConf->getHiddenSid() }]
         [{$_login_additional_form_parameters}]
-        <input type="hidden" name="fnc" value="login_codelogin">
+        <input type="hidden" name="fnc" value="">
         <input type="hidden" name="cl" value="[{ $oViewConf->getActiveClassName() }]">
         <input type="hidden" name="pgNr" value="[{$_login_pgnr}]">
         <input type="hidden" name="tpl" value="[{$_login_tpl}]">
@@ -15,20 +15,25 @@
           [{assign var="product" value=$oView->getProduct() }]
           <input type="hidden" name="anid" value="[{ $product->oxarticles__oxnid->value }]">
         [{/if}]
-	
-        <label for="test_RightLogin_Code">[{ oxmultilang ident="MARM_CODELOGIN_CODE" }]</label>
-        <input id="test_RightLogin_Code" type="text" name="lgn_code" value="" class="txt">
-		[{*
+
+        <label for="test_RightLogin_Email">[{ oxmultilang ident="INC_CMP_LOGIN_RIGHT_EMAIL" }]</label>
+        <input id="test_RightLogin_Email" type="text" name="lgn_usr" value="" class="txt">
+
+        <label for="test_RightLogin_Pwd">[{ oxmultilang ident="INC_CMP_LOGIN_RIGHT_PWD" }]</label>
+        <input id="test_RightLogin_Pwd" type="password" name="lgn_pwd" value="" class="txt">
+
         <label for="test_RightLogin_KeepLogggedIn">
             <input id="test_RightLogin_KeepLogggedIn" type="checkbox" name="lgn_cook" value="1" class="chk">
             [{ oxmultilang ident="INC_CMP_LOGIN_RIGHT_KEEPLOGGEDIN" }]
         </label>
-		*}]
-        <span class="btn"><input id="test_RightLogin_Login" type="submit" name="send" value="[{ oxmultilang ident="INC_CMP_LOGIN_RIGHT_LOGIN" }]" class="btn"></span>
-        [{*
-		<a id="test_RightLogin_Register" class="link" href="[{ oxgetseourl ident=$oViewConf->getSslSelfLink()|cat:"cl=register" params=$oViewConf->getNavUrlParams() }]" rel="nofollow">[{ oxmultilang ident="INC_CMP_LOGIN_RIGHT_OPENACCOUNT" }]</a>
+
+        <span class="btn"><input id="test_RightLogin_Login" type="submit" name="send" value="[{ oxmultilang ident="INC_CMP_LOGIN_RIGHT_LOGIN" }]" class="btn" onClick="Javascript:document.rlogin.fnc.value='login_noredirect'"></span>
+        <a id="test_RightLogin_Register" class="link" href="[{ oxgetseourl ident=$oViewConf->getSslSelfLink()|cat:"cl=register" params=$oViewConf->getNavUrlParams() }]" rel="nofollow">[{ oxmultilang ident="INC_CMP_LOGIN_RIGHT_OPENACCOUNT" }]</a>
         <a id="test_RightLogin_LostPwd" class="link" href="[{ oxgetseourl ident=$oViewConf->getSelfLink()|cat:"cl=forgotpwd" params=$oViewConf->getNavUrlParams() }]" rel="nofollow">[{ oxmultilang ident="INC_CMP_LOGIN_RIGHT_FORGOTPWD" }]</a>
-		*}]
+		<br />
+		<label for="test_RightLogin_Code">[{ oxmultilang ident="MARM_CODELOGIN_CODE" }]</label>
+        <input id="test_RightLogin_Code" type="text" name="lgn_code" value="" class="txt">
+		<span class="btn"><input id="test_RightLogin_Login" type="submit" name="send" value="[{ oxmultilang ident="MARM_LOGIN_RIGHT_BUTTON" }]" class="btn" onClick="Javascript:document.rlogin.fnc.value='login_codelogin'"></span>
     </div>
   </form>
 [{else}]
