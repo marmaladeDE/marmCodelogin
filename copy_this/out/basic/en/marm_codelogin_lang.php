@@ -6,15 +6,16 @@
  * http://www.marmalade.de
  */
 
-$sLangName  = "Deutsch";
-
+$sLangName  = "English";
+$iLangNr    = 1;
 // -------------------------------
 // RESOURCE IDENTITFIER = STRING
 // -------------------------------
 $aLang = array(
-    'charset'                                  		=> 'ISO-8859-15',
-    'tbclmarm_codelogin' 							=> 'CodeLogin',
 	'MARM_CODELOGIN_CODE'							=> 'Login-Code',
-	'MARM_CODELOGIN_GENERATE'						=> 'Code generieren',
+	'MARM_LOGIN_RIGHT_BUTTON'						=> 'Codelogin',
 );
+/*
+[{ oxmultilang ident="GENERAL_YOUWANTTODELETE" }]
+*/
 ?>
