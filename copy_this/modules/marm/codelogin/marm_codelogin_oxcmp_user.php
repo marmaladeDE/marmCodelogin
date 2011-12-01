@@ -31,5 +31,7 @@ class marm_codelogin_oxcmp_user extends marm_codelogin_oxcmp_user_parent
         } catch( oxCookieException $oEx ){
             oxUtilsView::getInstance()->addErrorToDisplay( $oEx );
         }
+        $this->_afterLogin( $oUser );
+        return oxView::getInstance()->getClassName();
 	}
 }
