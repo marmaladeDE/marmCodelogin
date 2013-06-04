@@ -1,1 +1,1 @@
-ALTER TABLE oxuser ADD oxmarmcodelogin Varchar(255) NULL DEFAULT NULL AFTER oxpasssalt, ADD UNIQUE (oxmarmcodelogin);
+ALTER TABLE oxuser ADD marmcodelogin Varchar(255) NULL DEFAULT NULL AFTER oxpasssalt, ADD UNIQUE (marmcodelogin);

@@ -7,7 +7,7 @@ class marm_codelogin  extends oxAdminDetails
 {
     /**
      * Executes parent method parent::render(), creates oxuser object,
-	 * passes data to Smarty engine and returns name of template
+     * passes data to Smarty engine and returns name of template
      * file "marm_codelogin.tpl".
      *
      * @return string
@@ -16,7 +16,7 @@ class marm_codelogin  extends oxAdminDetails
     {
         parent::render();
 
-		$soxId = oxConfig::getParameter( "oxid" );
+        $soxId = oxConfig::getParameter( "oxid" );
         if ( $soxId != "-1" && isset( $soxId ) ) {
             // load object
             $oUser = oxNew( "oxuser" );
@@ -54,10 +54,10 @@ class marm_codelogin  extends oxAdminDetails
 	 *
 	 */
 	public function generateCode() {
-		$oDB = oxDb::getDb();
+        $oDB = oxDb::getDb();
         for ($p = 0; $p < 10; $p++) {
 			$sCode = $this->generateString();
-			$sQ = 'select oxid from oxuser where oxmarmcodelogin = '. $oDB->quote( $sCode );
+			$sQ = 'select oxid from oxuser where marmcodelogin = '. $oDB->quote( $sCode );
 			$oRs = $oDB->execute( $sQ );
 			if ( $oRs != false && $oRs->recordCount() > 0 ){
 				

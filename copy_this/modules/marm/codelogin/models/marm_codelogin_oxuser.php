@@ -5,8 +5,8 @@
 
 class marm_codelogin_oxuser extends marm_codelogin_oxuser_parent
 {
-	/**
-	 * Performs user login by logincode. Fetches user data from DB.
+    /**
+     * Performs user login by logincode. Fetches user data from DB.
      * Registers in session. Returns true on success, FALSE otherwise.
      *
      * @param string $sLoginCode     User LoginCode
@@ -15,10 +15,11 @@ class marm_codelogin_oxuser extends marm_codelogin_oxuser_parent
      * @throws oxConnectionException, oxCookieException, oxUserException
      *
      * @return bool
-	 */
-	public function login_codelogin($sLoginCode, $blCookie = false){
+     */
+    public function login_codelogin($sLoginCode, $blCookie = false)
+    {
 	
-		if ( $this->isAdmin() && !count( oxUtilsServer::getInstance()->getOxCookie() ) ) {
+        if ( $this->isAdmin() && !count( oxUtilsServer::getInstance()->getOxCookie() ) ) {
             $oEx = oxNew( 'oxCookieException' );
             $oEx->setMessage( 'EXCEPTION_COOKIE_NOCOOKIE' );
             throw $oEx;
@@ -26,23 +27,23 @@ class marm_codelogin_oxuser extends marm_codelogin_oxuser_parent
 
         $myConfig = $this->getConfig();
 		
-		if ( $sLoginCode ){
-			$sShopID = $myConfig->getShopId();
+	if ( $sLoginCode ){
+            $sShopID = $myConfig->getShopId();
             $oDb = oxDb::getDb();
 			
-			$sCodeSelect = " oxuser.oxmarmcodelogin = " . $oDb->quote( $sLoginCode );
-			$sShopSelect = "";
+            $sCodeSelect = " oxuser.marmcodelogin = " . $oDb->quote( $sLoginCode );
+            $sShopSelect = "";
 
             // admin view: can only login with higher than 'user' rights
             if ( $this->isAdmin() ) {
                 $sShopSelect = " and ( oxrights != 'user' ) ";
             }
 			
-			$sWhat = "oxid";
+            $sWhat = "oxid";
 
             $sSelect =  "select $sWhat from oxuser where oxuser.oxactive = 1 and {$sCodeSelect}  {$sShopSelect} ";
 			
-			// load from DB
+            // load from DB
             $aData = $oDb->getAll( $sSelect );
             $sOXID = @$aData[0][0];
             if ( isset( $sOXID ) && $sOXID && !@$aData[0][1] ) {
@@ -85,5 +86,5 @@ class marm_codelogin_oxuser extends marm_codelogin_oxuser_parent
             $oEx->setMessage( 'EXCEPTION_USER_NOVALIDLOGIN' );
             throw $oEx;
         }
-	}
+    }
 }

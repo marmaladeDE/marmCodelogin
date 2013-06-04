@@ -28,9 +28,9 @@
 			</td>
 			<td class="edittext">
 			[{if $gen_done}]
-				<input type="text" class="editinput" size="25" maxlength="[{$edit->oxuser__oxmarmcodelogin->fldmax_length}]" name="editval[oxuser__oxmarmcodelogin]" value="[{$logincode}]" [{ $readonly }]>
+				<input type="text" class="editinput" size="25" maxlength="[{$edit->oxuser__marmcodelogin->fldmax_length}]" name="editval[oxuser__marmcodelogin]" value="[{$logincode}]" [{ $readonly }]>
 			[{else}]
-				<input type="text" class="editinput" size="25" maxlength="[{$edit->oxuser__oxmarmcodelogin->fldmax_length}]" name="editval[oxuser__oxmarmcodelogin]" value="[{$edit->oxuser__oxmarmcodelogin->value}]" [{ $readonly }]>
+				<input type="text" class="editinput" size="25" maxlength="[{$edit->oxuser__marmcodelogin->fldmax_length}]" name="editval[oxuser__marmcodelogin]" value="[{$edit->oxuser__marmcodelogin->value}]" [{ $readonly }]>
 			[{/if}]	
 			</td>
 			<td>
