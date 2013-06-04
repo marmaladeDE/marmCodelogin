@@ -9,26 +9,28 @@
 [{/capture}]
 [{if !$oxcmp_user->oxuser__oxpassword->value}]
     [{oxscript include="js/widgets/oxmodalpopup.js" priority=10 }]
-    [{oxscript add="$( '#forgotPasswordOpener' ).oxModalPopup({ target: '#forgotPassword'});"}]
+    [{oxscript add="$( '.forgotPasswordOpener' ).oxModalPopup({ target: '#forgotPassword'});"}]
     <div id="forgotPassword" class="popupBox corners FXgradGreyLight glowShadow">
         <img src="[{$oViewConf->getImageUrl('x.png')}]" alt="" class="closePop">
         [{include file="form/forgotpwd_email.tpl" idPrefix="Popup"}]
     </div>
-    <a href="#" id="loginBoxOpener" title="[{ oxmultilang ident="WIDGET_LOGINBOX_LOGIN" }]">[{ oxmultilang ident="WIDGET_LOGINBOX_LOGIN" }]</a>
+    <a href="#" id="loginBoxOpener" title="[{ oxmultilang ident="LOGIN" }]">[{ oxmultilang ident="LOGIN" }]</a>
     <form id="login" name="login" action="[{ $oViewConf->getSslSelfLink() }]" method="post">
         <div id="loginBox" class="loginBox" [{if $bIsError}]style="display: block;"[{/if}]>
             [{ $oViewConf->getHiddenSid() }]
             [{ $oViewConf->getNavFormParams() }]
-            <input type="hidden" name="fnc" value="">
-            <input type="hidden" name="cl" value="[{ $oViewConf->getActiveClassName() }]">
+            <input type="hidden" name="fnc" value="login_noredirect">
+            <input type="hidden" name="cl" value="[{ $oViewConf->getTopActiveClassName() }]">
+            [{if $oViewConf->getTopActiveClassName() eq "content"}]
+                <input type="hidden" name="oxcid" value="[{ $oViewConf->getContentId() }]">
+            [{/if}]
             <input type="hidden" name="pgNr" value="[{$oView->getActPage()}]">
             <input type="hidden" name="CustomError" value="loginBoxErrors">
-            [{if $oView->getProduct()}]
-                [{assign var="product" value=$oView->getProduct() }]
-                <input type="hidden" name="anid" value="[{ $product->oxarticles__oxnid->value }]">
+            [{if $oViewConf->getActArticleId()}]
+                <input type="hidden" name="anid" value="[{ $oViewConf->getActArticleId() }]">
             [{/if}]
             <div class="loginForm corners">
-                <h4>[{ oxmultilang ident="WIDGET_LOGINBOX_LOGIN" }]</h4>
+                <h4>[{ oxmultilang ident="LOGIN" }]</h4>
                 <p>
                     [{oxscript include="js/widgets/oxinnerlabel.js" priority=10 }]
                     [{oxscript add="$( '#loginEmail' ).oxInnerLabel();"}]
@@ -39,14 +41,16 @@
                     [{oxscript include="js/widgets/oxinnerlabel.js" priority=10 }]
                     [{oxscript add="$( '#loginPasword' ).oxInnerLabel();"}]
                     <label for="loginPasword" class="innerLabel">[{ oxmultilang ident="WIDGET_LOGINBOX_PASSWORD" }]</label>
-                    <input id="loginPasword" type="password" name="lgn_pwd" class="textbox passwordbox" value=""><strong><a id="forgotPasswordOpener" href="#" title="[{ oxmultilang ident="WIDGET_LOGINBOX_FORGOT_PASSWORD" }]">?</a></strong>
+                    <input id="loginPasword" type="password" name="lgn_pwd" class="textbox passwordbox" value=""><strong><a class="forgotPasswordOpener" href="#" title="[{ oxmultilang ident="WIDGET_LOGINBOX_FORGOT_PASSWORD" }]">?</a></strong>
                 </p>
                 [{$smarty.capture.loginErrors}]
+                [{if $oViewConf->isFunctionalityEnabled( "blShowRememberMe" )}]
                 <p class="checkFields clear">
                     <input type="checkbox" class="checkbox" value="1" name="lgn_cook" id="remember"><label for="remember">[{ oxmultilang ident="WIDGET_LOGINBOX_REMEMBER_ME" }]</label>
                 </p>
+                [{/if}]
                 <p>
-                    <button type="submit" class="submitButton" onClick="Javascript:document.login.fnc.value='login_noredirect'">[{ oxmultilang ident="WIDGET_LOGINBOX_LOGIN" }]</button>
+                    <button type="submit" class="submitButton">[{ oxmultilang ident="LOGIN" }]</button>
                 </p>
             </div>
 			<div class="loginForm corners">
@@ -64,7 +68,9 @@
             [{if $oViewConf->getShowFbConnect()}]
                 <div class="altLoginBox corners clear">
                     <span>[{ oxmultilang ident="WIDGET_LOGINBOX_WITH" }]</span>
-                    <fb:login-button size="medium" autologoutlink="true" length="short"></fb:login-button>
+                    <div id="loginboxFbConnect">
+                        [{include file="widget/facebook/enable.tpl" source="widget/facebook/connect.tpl" ident="#loginboxFbConnect" }]
+                    </div>
                 </div>
             [{/if}]
         </div>
