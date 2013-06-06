@@ -19,12 +19,6 @@ class marm_codelogin_oxuser extends marm_codelogin_oxuser_parent
     public function login_codelogin($sLoginCode, $blCookie = false)
     {
 	
-        if ( $this->isAdmin() && !count( oxUtilsServer::getInstance()->getOxCookie() ) ) {
-            $oEx = oxNew( 'oxCookieException' );
-            $oEx->setMessage( 'EXCEPTION_COOKIE_NOCOOKIE' );
-            throw $oEx;
-        }
-
         $myConfig = $this->getConfig();
 		
 	if ( $sLoginCode ){
@@ -32,16 +26,10 @@ class marm_codelogin_oxuser extends marm_codelogin_oxuser_parent
             $oDb = oxDb::getDb();
 			
             $sCodeSelect = " oxuser.marmcodelogin = " . $oDb->quote( $sLoginCode );
-            $sShopSelect = "";
-
-            // admin view: can only login with higher than 'user' rights
-            if ( $this->isAdmin() ) {
-                $sShopSelect = " and ( oxrights != 'user' ) ";
-            }
 			
             $sWhat = "oxid";
 
-            $sSelect =  "select $sWhat from oxuser where oxuser.oxactive = 1 and {$sCodeSelect}  {$sShopSelect} ";
+            $sSelect =  "select $sWhat from oxuser where oxuser.oxactive = 1 and {$sCodeSelect} ";
 			
             // load from DB
             $aData = $oDb->getAll( $sSelect );
@@ -59,11 +47,7 @@ class marm_codelogin_oxuser extends marm_codelogin_oxuser_parent
 		//login successfull?
         if ( $this->oxuser__oxid->value ) {
             // yes, successful login
-            if ( $this->isAdmin() ) {
-                oxSession::setVar( 'auth', $this->oxuser__oxid->value );
-            } else {
-                oxSession::setVar( 'usr', $this->oxuser__oxid->value );
-            }
+            oxSession::setVar( 'usr', $this->oxuser__oxid->value );
 
             // cookie must be set ?
             if ( $blCookie ) {
